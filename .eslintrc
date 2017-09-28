@@ -1,0 +1,18 @@
+{
+  	"parser": "babel-eslint",
+	"extends": "tailored-tunes",
+	"rules": {
+		"prefer-const": 2,
+		"no-alert": 0,
+		"no-shadow": 0,
+		"no-unused-vars": 0,
+	  	"one-var": "off",
+	  	"no-var": 0,
+	  	"comma-dangle": "off",
+	  	"vars-on-top": "off"
+	},
+	"globals": {
+		"ble": false,
+		"PUSH": false
+	}
+}
