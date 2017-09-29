@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: './src/index.html',
@@ -34,12 +35,16 @@ module.exports = {
 			}
 		]
 	},
+	stats: {
+		children: false  //to prevent double logs from sass lint
+	},
 	plugins: [
 		HtmlWebpackPluginConfig,
 		new ExtractTextPlugin({ // define where to save the file
 			filename: '[name].[hash].bundle.css',
 			allChunks: true,
 		}),
+		new StyleLintPlugin({}),
 	],
 	devServer: {
 		port: 3000,

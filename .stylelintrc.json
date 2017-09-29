@@ -1,0 +1,47 @@
+{
+  "rules": {
+	"declaration-property-value-blacklist": {
+	  "/^border/": [
+		"none"
+	  ]
+	},
+	"at-rule-no-vendor-prefix": true,
+	"block-no-empty": true,
+	"block-opening-brace-space-before": "always",
+	"block-opening-brace-newline-before": null,
+	"color-hex-case": [
+	  "lower"
+	],
+	"color-hex-length": "short",
+	"color-named": [
+	  "never"
+	],
+	"color-no-invalid-hex": true,
+	"declaration-block-semicolon-newline-after": "always",
+	"declaration-block-trailing-semicolon": "always",
+	"function-comma-space-after": "always",
+	"function-parentheses-space-inside": "never",
+	"function-url-quotes": "always",
+	"indentation": 2,
+	"max-nesting-depth": 3,
+	"media-feature-name-no-vendor-prefix": true,
+	"no-duplicate-selectors": true,
+	"no-missing-end-of-source-newline": true,
+	"number-leading-zero": [
+	  "never"
+	],
+	"number-no-trailing-zeros": true,
+	"property-no-unknown": true,
+	"property-no-vendor-prefix": true,
+	"selector-list-comma-newline-after": "always",
+	"selector-no-qualifying-type": [true, {
+	  "ignore": ["attribute", "id"]
+	}],
+	"selector-no-vendor-prefix": true,
+	"selector-type-case": "lower",
+	"shorthand-property-no-redundant-values": true,
+	"string-quotes": "single",
+	"unit-no-unknown": true,
+	"value-no-vendor-prefix": true
+  }
+}
