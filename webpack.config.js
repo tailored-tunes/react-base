@@ -1,13 +1,42 @@
 const path = require('path');
-
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: './src/index.html',
 	filename: 'index.html',
 	inject: 'body'
 });
+
+const autoPrefixerOptions = {};
+const cssnanoConfig = {};
+
+let PRODUCTION = false;
+
+if(process.env.NODE_ENV && process.env.NODE_ENV==='production') {
+	PRODUCTION = true;
+}
+
+const postCssOptions = function () {
+	let plugins = [];
+
+	if (PRODUCTION === true) {
+		plugins = [
+			autoprefixer(autoPrefixerOptions),
+			cssnano(cssnanoConfig)
+		]
+	} else {
+		plugins = [
+			autoprefixer(autoPrefixerOptions)
+		]
+	}
+	return {plugins: plugins};
+};
+
 
 module.exports = {
 	entry: [
@@ -19,7 +48,7 @@ module.exports = {
 	],
 	output: {
 		path: path.resolve('dist'),
-		filename: 'index_bundle_[hash].js'
+		filename: PRODUCTION ? 'index_bundle_[hash].js' : 'index_bundle.js'
 	},
 	module: {
 		loaders: [
@@ -27,11 +56,15 @@ module.exports = {
 			{test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/},
 			{
 				test: /\.(sass|scss)$/,
-				loader: ExtractTextPlugin.extract([{loader: 'css-loader', options: { minimize: true }}, 'sass-loader'])
+				loader: ExtractTextPlugin.extract([
+					'css-loader',
+					{loader: 'postcss-loader', options: postCssOptions()},
+					'sass-loader'
+				])
 			},
 			{
 				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader' ]
+				use: ['style-loader', 'css-loader']
 			}
 		]
 	},
@@ -39,9 +72,12 @@ module.exports = {
 		children: false  //to prevent double logs from sass lint
 	},
 	plugins: [
+		new webpack.EnvironmentPlugin({
+			NODE_ENV: 'development'
+		}),
 		HtmlWebpackPluginConfig,
-		new ExtractTextPlugin({ // define where to save the file
-			filename: '[name].[hash].bundle.css',
+		new ExtractTextPlugin({
+			filename: PRODUCTION ? '[name].[hash].bundle.css' : '[name].bundle.css',
 			allChunks: true,
 		}),
 		new StyleLintPlugin({}),
@@ -49,9 +85,9 @@ module.exports = {
 	devServer: {
 		port: 3000,
 		hot: true,
-        overlay: {
-            errors: true,
-            warnings: true,
-        }
+		overlay: {
+			errors: true,
+			warnings: true,
+		}
 	}
 };
