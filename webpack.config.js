@@ -5,6 +5,7 @@ const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 	template: './src/index.html',
@@ -72,6 +73,7 @@ module.exports = {
 		children: false  //to prevent double logs from sass lint
 	},
 	plugins: [
+		new CleanWebpackPlugin(['dist']),
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development'
 		}),
