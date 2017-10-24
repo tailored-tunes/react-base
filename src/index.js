@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import {AppContainer} from 'react-hot-loader';
 
+const version = '__SOME_RUNTIME_VAR__';
+
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
