@@ -1,7 +1,9 @@
 {
-  	"parser": "babel-eslint",
-	"extends": "tailored-tunes",
+  "parser": "babel-eslint",
+  "extends": "tailored-tunes",
 	"rules": {
+    "newline-after-var": 0,
+    "indent": ["error", 2],
 		"prefer-const": 2,
 		"no-alert": 0,
 		"no-shadow": 0,

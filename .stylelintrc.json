@@ -8,6 +8,7 @@
 	  "lower"
 	],
 	"color-hex-length": "short",
+	"color-no-hex": true,
 	"color-named": [
 	  "never"
 	],
